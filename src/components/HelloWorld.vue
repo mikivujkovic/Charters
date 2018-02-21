@@ -22,15 +22,16 @@
 
 <script>
 export default {
+  name: "HelloWorld",
   methods: {
     showDetails() {
-      this.$router.push('details');
+      this.$router.push("details");
     },
     showOrder() {
-      this.$router.push('order');
+      this.$router.push("order");
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

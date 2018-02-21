@@ -17,10 +17,9 @@
 </template>
 
 <script>
-
-import first from "@/assets/1.jpg"
-import second from "@/assets/2.jpg"
-import third from "@/assets/3.jpg"
+import first from "../assets/1.jpg";
+import second from "../assets/2.jpg";
+import third from "../assets/3.jpg";
 export default {
   data() {
     return {
@@ -35,14 +34,14 @@ export default {
           src: third
         }
       ]
-    }
+    };
   },
   methods: {
     showOrder() {
-      this.$router.push('order');
+      this.$router.push("order");
     }
   }
-}
+};
 </script>
 
 
@@ -71,5 +70,4 @@ a {
   height: 500px;
   margin-right: 10px;
 }
-
 </style>

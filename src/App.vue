@@ -61,50 +61,49 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
       items: [
-        { title: 'Home', icon: 'account_balance', click: '/' },
-        { title: 'Details', icon: 'directions_boat', click: 'details' },
-        { title: 'Book', icon: 'schedule', click: 'order' },
-        { title: 'About', icon: 'business', click: 'order' }
+        { title: "Home", icon: "account_balance", click: "/" },
+        { title: "Details", icon: "directions_boat", click: "details" },
+        { title: "Book", icon: "schedule", click: "order" },
+        { title: "About", icon: "business", click: "order" }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Montenegro Charters'
-    }
+      title: "Montenegro Charters"
+    };
   },
-  name: 'App',
+  name: "App",
   methods: {
     goHome() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     showDetails() {
-      this.$router.push('details')
+      this.$router.push("details");
     },
     showOrder(x) {
-      this.$router.push(x)
+      this.$router.push(x);
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.bgfull { 
-    /* The image used */
-    background-image: url("./assets/background.jpg");
+.bgfull {
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1451361472689-18a9aa12744e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=12f3b02711601cd842717ce44cfde222&auto=format&fit=crop&w=2700&q=80");
 
-    /* Full height */
-    height: 100%; 
+  /* Full height */
+  height: 100%;
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
-
