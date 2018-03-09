@@ -10,7 +10,10 @@
       app
       style="background-color:transparent;"
     >
-    <v-toolbar flat class="transparent">
+    <v-toolbar 
+    flat 
+    class="transparent" 
+    >
         <v-list class="pa-0">
           <v-list-tile >
             <v-list-tile-content>
@@ -96,8 +99,7 @@ export default {
 <style scoped>
 .bgfull {
   /* The image used */
-  background-image: url("https://images.unsplash.com/photo-1451361472689-18a9aa12744e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=12f3b02711601cd842717ce44cfde222&auto=format&fit=crop&w=2700&q=80");
-
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean5.jpeg?alt=media&token=a3ad66b8-e12d-40d5-99dd-d9b9746ad0b0");
   /* Full height */
   height: 100%;
 
