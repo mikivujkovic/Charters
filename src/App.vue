@@ -8,7 +8,7 @@
       enable-resize-watcher
       fixed
       app
-      style="background-color:transparent;"
+      style="background-color:rgba(0, 0, 0, 0.6);"
     >
     <v-toolbar 
     flat 
@@ -26,7 +26,7 @@
         <v-list-tile
           v-for="item in items" 
           :key="item.title" 
-          @click="showOrder(item.click)"
+          @click="showItem(item.click)"
         >
           <v-list-tile-action>
             <v-icon color="blue">{{item.icon}}</v-icon>
@@ -42,17 +42,19 @@
       :clipped-left="clipped"
       flat
       fixed
-      extended
-      style="background-color:transparent;"
+      style="background-color:rgba(0, 0, 0, 0.5);"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
       <v-btn flat @click="goHome" v-text="title" class="white--text" style="background-color:transparent"></v-btn>
       <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down">
+      <v-btn flat color="orange" @click="showOrder">Request an offer</v-btn>
+    </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-footer style="background-color:transparent;">
+    <v-footer style="background-color:rgba(0, 0, 0, 0.6);">
       <v-layout row wrap justify-center>
       <v-flex xs12 py-3 text-xs-center white--text>
         &copy;2018 — <strong>MontenegroCharters.me</strong>
@@ -70,10 +72,25 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        { title: "Home", icon: "account_balance", click: "/" },
-        { title: "Details", icon: "directions_boat", click: "details" },
-        { title: "Book", icon: "schedule", click: "order" },
-        { title: "About", icon: "business", click: "order" }
+        { title: "Home", icon: "home", click: "/" },
+        { title: "Details", icon: "dashboard", click: "details" },
+        { title: "Basic information", icon: "assignment", click: "basic" },
+        {
+          title: "Additional services",
+          icon: "assignment",
+          click: "additional"
+        },
+        {
+          title: "Elan Impression 384",
+          icon: "directions_boat",
+          click: "boatsElan"
+        },
+        {
+          title: "Jeanneau Sun Odyssey 45",
+          icon: "directions_boat",
+          click: "boatsJean"
+        },
+        { title: "REQUEST AN OFFER", icon: "euro_symbol", click: "order" }
       ],
       miniVariant: false,
       right: true,
@@ -89,7 +106,10 @@ export default {
     showDetails() {
       this.$router.push("details");
     },
-    showOrder(x) {
+    showOrder() {
+      this.$router.push("order");
+    },
+    showItem(x) {
       this.$router.push(x);
     }
   }

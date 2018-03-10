@@ -3,6 +3,19 @@
       <v-layout column align-center>
         <v-flex>
           <div class="rounded" align="center" xs12>
+          <div>
+           <v-breadcrumbs divider="/" justify-center large >
+            <v-breadcrumbs-item
+            v-for="item in bread"
+            :key="item.text"
+            :disabled="item.disabled"
+            :to="item.link"
+            >
+            {{ item.text }}
+            </v-breadcrumbs-item>
+           </v-breadcrumbs>
+           </div>
+          <br>
            <h1 align="center" class="white--text">Basic information</h1>
            <br>
            <div class="white--text">
@@ -47,7 +60,19 @@ export default {
       You can find more information and pictures of the boats by clicking below`,
       additional: `Sailboats will be accmpanied with our skipper. You can request additional services like purchasing and preparing food,
       sightseeing, restaurant or hotel reservations. we have very good connections with regional service providers and can make you excellent deals\
-      on food, drink and accomodation. For more info on additional services click below`
+      on food, drink and accomodation. For more info on additional services click below`,
+      bread: [
+        {
+          text: "Home",
+          disabled: false,
+          link: "/"
+        },
+        {
+          text: "Details",
+          disabled: true,
+          link: "details"
+        }
+      ]
     };
   },
   methods: {

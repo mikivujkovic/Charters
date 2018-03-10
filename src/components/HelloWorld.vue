@@ -15,13 +15,13 @@
           <br>
         </div>
         <div>
-          <v-btn @click="showDetails" flat color="warning">Details</v-btn>
+          <v-btn @click="showBasic" flat color="warning">Info</v-btn>
           <v-btn @click="showOrder" flat class="white--text" color="warning">Request an offer</v-btn>
         </div>
         </div>
         <div>
          <video id="player" height=100% autoplay loop>
-          <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v5.mp4?alt=media&token=97264beb-f2fd-40bf-9c40-528d6b04556b" type="video/mp4">
+          <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v3.mp4?alt=media&token=474116e5-935f-4336-a268-6f83b4b711a1" type="video/mp4">
            Your browser does not support the video tag.
         </video> 
         </div>
@@ -34,7 +34,7 @@
 export default {
   name: "HelloWorld",
   methods: {
-    showDetails() {
+    showBasic() {
       this.$router.push("details");
     },
     showOrder() {

@@ -3,6 +3,19 @@
       <v-layout column align-center>
         <v-flex>
         <div align="center" class="white--text">
+        <div>
+           <v-breadcrumbs divider="/" large justify-center>
+            <v-breadcrumbs-item
+            v-for="item in bread"
+            :key="item.text"
+            :disabled="item.disabled"
+            :to="item.link"
+            >
+            {{ item.text }}
+            </v-breadcrumbs-item>
+           </v-breadcrumbs>
+           </div>
+          <br>
         <h1>Elan Impression 384</h1>
         </div>
           <div class="container">
@@ -78,6 +91,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      bread: [
+        {
+          text: "Home",
+          disabled: false,
+          link: "/"
+        },
+        {
+          text: "Details",
+          disabled: false,
+          link: "details"
+        },
+        {
+          text: "Elan Impression 384",
+          disabled: true,
+          link: "boatElan"
+        }
+      ]
+    };
+  },
   mounted: function() {
     const current = document.querySelector("#current");
     const imgs = document.querySelectorAll(".imgs img");

@@ -3,7 +3,20 @@
       <v-layout column align-center>
         <v-flex>
           <div class="rounded" align="center" xs12>
-           <h1 align="center" class="white--text">Terms and conditions</h1>
+           <div>
+           <v-breadcrumbs divider="/" large justify-center>
+            <v-breadcrumbs-item
+            v-for="item in bread"
+            :key="item.text"
+            :disabled="item.disabled"
+            :to="item.link"
+            >
+            {{ item.text }}
+            </v-breadcrumbs-item>
+           </v-breadcrumbs>
+           </div>
+          <br>
+           <h1 align="center" class="white--text">Additional services</h1>
            <br>
            <div class="white--text">
             {{services}}
@@ -30,7 +43,24 @@ export default {
       and instrutors are also a possibility`,
       how: `All additional needs should be stated in the offer request. It is possible to arrange additional services 
       when you arrive at the sailboat. 
-      `
+      `,
+      bread: [
+        {
+          text: "Home",
+          disabled: false,
+          link: "/"
+        },
+        {
+          text: "Details",
+          disabled: false,
+          link: "details"
+        },
+        {
+          text: "Additional services",
+          disabled: true,
+          link: "additional"
+        }
+      ]
     };
   },
   methods: {
