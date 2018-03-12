@@ -146,6 +146,8 @@ export default {
 
       // Change the opacity to opacity var
       e.target.style.opacity = opacity;
+      document.body.scrollTop=0;
+      document.documentElement.scrollTop=0;
     }
   }
 };

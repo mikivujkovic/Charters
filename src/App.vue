@@ -1,5 +1,11 @@
 <template>
-  <v-app class="bgfull">
+  <v-app 
+  style="background-image: url('https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean5.jpeg?alt=media&token=a3ad66b8-e12d-40d5-99dd-d9b9746ad0b0');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  ">
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"

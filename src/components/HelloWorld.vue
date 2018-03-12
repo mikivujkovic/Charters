@@ -21,7 +21,7 @@
         </div>
         <div>
          <video id="player" height=100% autoplay loop>
-          <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v3.mp4?alt=media&token=474116e5-935f-4336-a268-6f83b4b711a1" type="video/mp4">
+          <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v2.m4v?alt=media&token=e7892037-1ba9-4da2-ac97-f4f601711867" type="video/mp4">
            Your browser does not support the video tag.
         </video> 
         </div>
