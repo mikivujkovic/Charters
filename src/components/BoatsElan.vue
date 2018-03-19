@@ -116,18 +116,45 @@ export default {
     const current = document.querySelector("#current");
     const imgs = document.querySelectorAll(".imgs img");
     const opacity = 0.6;
+    const size = imgs.length;
+
+    let index = 5;
 
     // Set first img opacity
-    imgs[0].style.opacity = opacity;
+    imgs[index].style.opacity = opacity;
+
+    current.addEventListener("click", currentClick);
 
     imgs.forEach(img => img.addEventListener("click", imgClick));
 
+    function currentClick() {
+      console.log("size", size);
+      console.log("index", index);
+      let newIndex = index + 1;
+      if (newIndex > size - 1) {
+        index = 0;
+      } else {
+        index = newIndex;
+      }
+      current.src = imgs[index].src;
+    }
+
     function imgClick(e) {
+      console.log(imgs);
       // Reset the opacity
       imgs.forEach(img => (img.style.opacity = 1));
 
       // Change current image to src of clicked image
       current.src = e.target.src;
+      console.log(e.target);
+      console.log(current.src);
+      for (var i = 0; i < size; i++) {
+        if (imgs[i].src === current.src) {
+          index = i;
+          break;
+        }
+      }
+      //index = imgs.indexOf(e.target);
 
       // Add fade in class
       current.classList.add("fade-in");
@@ -137,8 +164,8 @@ export default {
 
       // Change the opacity to opacity var
       e.target.style.opacity = opacity;
-      document.body.scrollTop=0;
-      document.documentElement.scrollTop=0;
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
   }
 };

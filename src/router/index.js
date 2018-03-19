@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import HelloWorld from "../components/HelloWorld";
 import Details from "../components/Details";
-import Order from "../components/Order";
 import Gallery from "../components/Gallery";
 import Basic from "../components/Basic";
 import Additional from "../components/Additional";

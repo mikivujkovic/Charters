@@ -20,7 +20,7 @@
         </div>
         </div>
         <div>
-         <video id="player" height=100% autoplay loop>
+         <video id="player" height=100% playsinline autoplay loop>
           <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v2.m4v?alt=media&token=e7892037-1ba9-4da2-ac97-f4f601711867" type="video/mp4">
            Your browser does not support the video tag.
         </video> 
@@ -83,5 +83,11 @@ back {
   right: 0;
   top: 0;
   bottom: 0;
+
+  @media only screen and (max-width: 800px) {
+    #player {
+      display: none;
+    }
+  }
 }
 </style>
