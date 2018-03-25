@@ -33,30 +33,32 @@
               :reactive="reactive"
               event-color="red"
               :events="eventsArray"
-              color="orange">
+              color="orange"
+              @input="dateSelected"
+             >
             </v-date-picker>
             <v-text-field
               name="duration"
               label="Duration (days)"
-              value="7"
-              dark>
+              dark
+              v-model="duration">
             </v-text-field>
             <v-text-field
               name="people"
               label="Number of people"
-              value="1"
+              v-model="people"
               dark>
             </v-text-field>
             <v-text-field
               name="towels"
               label="Additional towels (10€/piece)"
-              value="0"
+              v-model="addTowels"
               dark>
             </v-text-field>
             <v-text-field
               name="linen"
               label="Additional bed linen (10€/piece)"
-              value="0"
+              v-model="addLinen"
               dark>
             </v-text-field>
             <v-checkbox
@@ -68,13 +70,14 @@
             <v-text-field
               name="port"
               label="Base port other then Kotor"
-              value="No"
+              v-model="basePort"
               dark>
             </v-text-field>
             <v-text-field
                 name="otherRequests"
                 label="Additional requests(food, museums, anything you want)"
                 textarea
+                v-model="addRequest"
                 dark>
                 </v-text-field>
             <v-text-field
@@ -153,12 +156,18 @@ export default {
         link: "details"
       }
     ],
-    picker: null,
+    picker: "2018-03-25",
+    duration: 7,
+    people: 1,
+    addTowels: 0,
+    addLinen: 0,
+    basePort: "No",
+    addRequest: "",
     name: "",
-    phone: null,
-    address: null,
-    city: null,
-    selectCountry: null,
+    phone: "",
+    address: "",
+    city: "",
+    selectCountry: "Montenegro",
     nameRules: [v => !!v || "Name is required"],
     phoneRules: [v => !!v || "Phone number is required"],
     addressRules: [v => !!v || "Address is required"],
@@ -177,7 +186,8 @@ export default {
     landscape: true,
     eventsArray: [],
     takenDates: [],
-    reactive: false
+    reactive: false,
+    date: null
   }),
   created() {
     db
@@ -191,18 +201,39 @@ export default {
             boat: doc.data().boat
           };
           this.takenDates.push(data);
-          console.log(this.takenDates);
         });
       });
   },
   methods: {
     submit() {
-      if (this.$refs.form.validate()) {
-        // Native form submission is not yet supporte
-      }
+      db
+        .collection("requests")
+        .add({
+          boat: this.selectBoat,
+          start: this.picker,
+          duration: this.duration,
+          people: this.people,
+          addTowels: this.addTowels,
+          addLinen: this.addLinen,
+          rubberBoat: this.checkbox,
+          basePort: this.basePort,
+          addRequest: this.addRequest,
+          fullName: this.name,
+          email: this.email,
+          phone: this.phone,
+          address: this.address,
+          city: this.city,
+          country: this.selectCountry
+        })
+        .then(alert("submitted"))
+        .catch(console.log(Error));
+      // Native form submission is not yet supported
     },
     clear() {
       this.$refs.form.reset();
+    },
+    dateSelected() {
+      alert(typeof this.picker);
     },
     boatSelected() {
       switch (this.selectBoat) {
