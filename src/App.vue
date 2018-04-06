@@ -53,9 +53,20 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
       <v-btn flat @click="goHome" v-text="title" class="white--text" style="background-color:transparent"></v-btn>
       <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat color="orange" @click="showOrder">Request an offer</v-btn>
-    </v-toolbar-items>
+      <div @click="toMNE" >
+      <v-toolbar-items class="hidden-sm-and-down">
+        <flag iso="me" />
+      </v-toolbar-items>
+      </div>
+      <div @click="toUS" > 
+      <v-toolbar-items class="hidden-sm-and-down">
+        <flag iso="us" />
+      </v-toolbar-items>
+      </div>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat color="orange" @click="showOrder">Request an offer</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view></router-view>

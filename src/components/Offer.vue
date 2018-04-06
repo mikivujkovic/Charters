@@ -2,7 +2,7 @@
   <v-container>
       <v-layout column align-center>
         <v-flex>
-         <div class="back">
+         <div class="back" style="min-width:500px">
          <div>
            <v-breadcrumbs divider="/" justify-center large >
             <v-breadcrumbs-item
@@ -41,7 +41,9 @@
               name="duration"
               label="Duration (days)"
               dark
-              v-model="duration">
+              v-model="duration"
+              @input="durationChanged"
+              mask="#">
             </v-text-field>
             <v-text-field
               name="people"
@@ -141,6 +143,10 @@
 <script>
 import { countries } from "./Countries.js";
 import db from "./firebaseInit";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
+const moment = extendMoment(Moment);
+
 export default {
   data: () => ({
     valid: true,
@@ -156,8 +162,8 @@ export default {
         link: "details"
       }
     ],
-    picker: "2018-03-25",
-    duration: 7,
+    picker: null,
+    duration: 1,
     people: 1,
     addTowels: 0,
     addLinen: 0,
@@ -183,11 +189,12 @@ export default {
     boats: ["Elan Impression 384", "Jeanneau Sun Odyssey 45"],
     countries: countries,
     checkbox: false,
-    landscape: true,
+    landscape: false,
     eventsArray: [],
     takenDates: [],
     reactive: false,
-    date: null
+    date: null,
+    selectionError: true
   }),
   created() {
     db
@@ -195,7 +202,6 @@ export default {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data);
           const data = {
             date: doc.data().date,
             boat: doc.data().boat
@@ -206,34 +212,52 @@ export default {
   },
   methods: {
     submit() {
-      db
-        .collection("requests")
-        .add({
-          boat: this.selectBoat,
-          start: this.picker,
-          duration: this.duration,
-          people: this.people,
-          addTowels: this.addTowels,
-          addLinen: this.addLinen,
-          rubberBoat: this.checkbox,
-          basePort: this.basePort,
-          addRequest: this.addRequest,
-          fullName: this.name,
-          email: this.email,
-          phone: this.phone,
-          address: this.address,
-          city: this.city,
-          country: this.selectCountry
-        })
-        .then(alert("submitted"))
-        .catch(console.log(Error));
+      if (this.$refs.form.validate() && !this.selectionError) {
+        db
+          .collection("requests")
+          .add({
+            boat: this.selectBoat,
+            start: this.picker,
+            duration: this.duration,
+            people: this.people,
+            addTowels: this.addTowels,
+            addLinen: this.addLinen,
+            rubberBoat: this.checkbox,
+            basePort: this.basePort,
+            addRequest: this.addRequest,
+            fullName: this.name,
+            email: this.email,
+            phone: this.phone,
+            address: this.address,
+            city: this.city,
+            country: this.selectCountry
+          })
+          .then(alert("submitted"))
+          .catch(console.log(Error));
+      }
       // Native form submission is not yet supported
     },
     clear() {
       this.$refs.form.reset();
     },
+    durationChanged() {
+      this.checkdates();
+    },
     dateSelected() {
-      alert(typeof this.picker);
+      this.checkdates();
+    },
+    checkdates() {
+      const start = moment(this.picker);
+      const end = start.clone().add(this.duration - 1, "d");
+      const range = moment.range(start, end);
+      const daysInRange = Array.from(range.by("day"));
+      const daysToCompare = daysInRange.map(m => m.format("YYYY-MM-DD"));
+      const overlap = daysToCompare.filter(x => this.eventsArray.includes(x));
+      if (overlap.length !== 0) {
+        alert("please choose another period or boat");
+      } else {
+        this.selectionError = false;
+      }
     },
     boatSelected() {
       switch (this.selectBoat) {
@@ -246,6 +270,7 @@ export default {
             .map(function(item) {
               return item.date;
             });
+          this.checkdates();
           break;
         case "Jeanneau Sun Odyssey 45":
           this.eventsArray = [];
@@ -256,11 +281,13 @@ export default {
             .map(function(item) {
               return item.date;
             });
+          this.checkdates();
           break;
         default:
       }
     }
-  }
+  },
+  components: {}
 };
 </script>
 
