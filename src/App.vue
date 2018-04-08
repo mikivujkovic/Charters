@@ -53,16 +53,17 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
       <v-btn flat @click="goHome" v-text="title" class="white--text" style="background-color:transparent"></v-btn>
       <v-spacer></v-spacer>
-      <div @click="toMNE" >
+      <div @click="changeToMne" >
       <v-toolbar-items class="hidden-sm-and-down">
         <flag iso="me" />
       </v-toolbar-items>
       </div>
-      <div @click="toUS" > 
+      <div @click="changeToEn" > 
       <v-toolbar-items class="hidden-sm-and-down">
         <flag iso="us" />
       </v-toolbar-items>
       </div>
+      <div class="white--text">{{lang}}</div>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat color="orange" @click="showOrder">Request an offer</v-btn>
@@ -82,6 +83,11 @@
 </template>
 
 <script>
+
+import store from './store/store';
+import * as type from './store/types';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -128,8 +134,23 @@ export default {
     },
     showItem(x) {
       this.$router.push(x);
+    },
+    changeToMne() {
+      store.dispatch({
+            type: type.ChangeToMNE,
+            newLang: 'mne'
+          })
+    },
+    changeToEn() {
+       store.dispatch({
+            type: type.ChangeToEN,
+            newLang: 'en'
+          })
     }
-  }
+  },
+  computed: mapState({
+      lang: state => state.lang
+  })
 };
 </script>
 
