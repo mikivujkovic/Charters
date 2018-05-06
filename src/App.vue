@@ -8,11 +8,10 @@
   ">
     <v-navigation-drawer
       persistent
-      :mini-variant="miniVariant"
+      fixed
       :clipped="clipped"
       v-model="drawer"
       enable-resize-watcher
-      fixed
       app
       style="background-color:rgba(0, 0, 0, 0.6);"
     >
@@ -23,7 +22,7 @@
         <v-list class="pa-0">
           <v-list-tile >
             <v-list-tile-content>
-              <v-list-tile-title class="white--text title">Menu</v-list-tile-title>
+              <v-list-tile-title class="white--text title">{{menu[lang]}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -38,35 +37,41 @@
             <v-icon color="blue">{{item.icon}}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content class="white--text">
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            <v-list-tile-title v-text="item.title[lang]"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <div style="padding: 10px">
+       <div @click="changeToMne" >
+        <v-toolbar-items>
+          <flag iso="me" />
+        </v-toolbar-items>
+      </div>
+      <div @click="changeToEn" > 
+      <v-toolbar-items>
+        <flag iso="us" />
+      </v-toolbar-items>
+      </div>
+      </div>
     </v-navigation-drawer>
     <v-toolbar
       app
-      :clipped-left="clipped"
-      flat
-      fixed
       style="background-color:rgba(0, 0, 0, 0.5);"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
-      <v-btn flat @click="goHome" v-text="title" class="white--text" style="background-color:transparent"></v-btn>
-      <v-spacer></v-spacer>
       <div @click="changeToMne" >
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items>
         <flag iso="me" />
       </v-toolbar-items>
       </div>
       <div @click="changeToEn" > 
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items>
         <flag iso="us" />
       </v-toolbar-items>
       </div>
-      <div class="white--text">{{lang}}</div>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat color="orange" @click="showOrder">Request an offer</v-btn>
+      <v-btn flat @click="goHome" v-text="title" class="white--text" style="background-color:transparent"></v-btn>
+      <v-toolbar-items>
+        <v-btn flat color="orange" @click="showOrder">{{request_button[lang]}}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -92,33 +97,82 @@ export default {
   data() {
     return {
       clipped: false,
+      menu: {
+        en: 'Menu',
+        mne: 'Meni'
+      },
       drawer: false,
       fixed: false,
       items: [
-        { title: "Home", icon: "home", click: "/" },
-        { title: "Details", icon: "dashboard", click: "details" },
-        { title: "Basic information", icon: "assignment", click: "basic" },
+        { title: {
+          en: "Home",
+          mne: "Naslovna"
+          }, 
+        icon: "home", 
+        click: "/" 
+        },
+        { title: {
+          en: "Details",
+          mne: "Detalji"
+        }, 
+        icon: "dashboard", 
+        click: "details" 
+        },
+        { title: {
+          en: "Basic information",
+          mne: "Osnovne informacije"
+        }, 
+        icon: "assignment", 
+        click: "basic" 
+        },
         {
-          title: "Additional services",
+          title: {
+            en: "Additional services",
+            mne: "Dodatne usluge"
+          },
           icon: "assignment",
           click: "additional"
         },
         {
-          title: "Elan Impression 384",
+          title: {
+            en: "Elan Impression 384",
+            mne: "Elan Impression 384"
+          },
           icon: "directions_boat",
           click: "boatsElan"
         },
         {
-          title: "Jeanneau Sun Odyssey 45",
+          title: {
+            en: "Jeanneau Sun Odyssey 45",
+            mne: "Jeanneau Sun Odyssey 45"
+          },
           icon: "directions_boat",
           click: "boatsJean"
         },
-        { title: "REQUEST AN OFFER", icon: "euro_symbol", click: "order" }
+        {
+          title: {
+            en: "PriceList",
+            mne: "Cjenovnik"
+          },
+          icon: "directions_boat",
+          click: "priceList"
+        },
+        { title: {
+          en:"REQUEST AN OFFER",
+          mne: "TRAZI PONUDU"
+        }, 
+        icon: "euro_symbol", 
+        click: "order" 
+        }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Montenegro Charters"
+      title: "Montenegro Charters",
+      request_button: {
+        en: "Request an offer",
+        mne: "Trazi ponudu"
+      }
     };
   },
   name: "App",

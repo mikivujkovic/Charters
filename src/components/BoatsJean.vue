@@ -11,7 +11,7 @@
             :disabled="item.disabled"
             :to="item.link"
             >
-            {{ item.text }}
+            {{ item.text[lang] }}
             </v-breadcrumbs-item>
            </v-breadcrumbs>
            </div>
@@ -28,7 +28,6 @@
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean4.jpeg?alt=media&token=f6f672a1-5b6e-4b7f-90e9-e6bb124cdd57">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean5.jpeg?alt=media&token=a3ad66b8-e12d-40d5-99dd-d9b9746ad0b0">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean6.jpeg?alt=media&token=9c6cd407-6ec2-497e-9bfd-4abbd82cea63">
-             <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/elan6.jpeg?alt=media&token=25937e1f-e96f-47c9-a60b-54dbab700754">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean8.jpeg?alt=media&token=c58a687f-7ead-489b-ac44-f411469fa999">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean9.jpeg?alt=media&token=4a54f5e6-f999-446e-8191-bf65445cb6fd">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jean10.jpeg?alt=media&token=01e43bbd-0722-4c68-83f3-85c639afe939">
@@ -55,42 +54,42 @@
         </div>
         <br>
         <div style="font-size: 20px" class="white--text">
-        <div style="font-size: 24px" align="center" class="orange--text">Technical data</div>
+        <div style="font-size: 24px" align="center" class="orange--text">{{technical[lang]}}</div>
         <div align="center" class="white--text">
-        Lenght Overall: 14.15m
+        {{lengthOverall[lang]}}: 14.15m
         </div>
         <div align="center" class="white--text">
-        Beam: 4.37m
+        {{beam[lang]}}: 4.37m
         </div>
         <div align="center" class="white--text">
-        Draft Min.: 1.65m
+        {{draftMin[lang]}}: 1.65m
         </div>
         <div align="center" class="white--text">
-        Draft Max.: 2.05m
+        {{draftMax[lang]}}: 2.05m
         </div>
         <div align="center" class="white--text">
-        Water Capacity: 450 L
+        {{water[lang]}}: 450 L
         </div>
         <div align="center" class="white--text">
-        Fuel Capacity: 240 L
+        {{fuel[lang]}}: 240 L
         </div>
         <div align="center" class="white--text">
-        Cabins: 4
+        {{cabins[lang]}}: 4
         </div>
         <div align="center" class="white--text">
-        Berths: 8/10
+        {{berths[lang]}}: 8/10
         </div>
         <div align="center" class="white--text">
-        Max. passengers: 10
+        {{passengers[lang]}}: 10
         </div>
         <div align="center" class="white--text">
-        Bathrooms: 2
+        {{bath[lang]}}: 2
         </div>
         <div align="center" class="white--text">
-        WC: 0
+        WC: 2
         </div>
         <div align="center" class="white--text">
-        Engine Power: 76hp
+        {{engine[lang]}}: 76hp
         </div>
         </div>
         </v-flex>
@@ -99,22 +98,84 @@
 </template>
 
 <script>
+
+import store from '../store/store';
+import * as type from '../store/types';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
+      technical: {
+        en: 'Technical data',
+        mne: "Tehnički podaci"
+      },
+      lengthOverall: {
+        en: "Length overall",
+        mne: "Ukupna dužina"
+      },
+      beam: {
+        en: "beam",
+        mne: "širina"
+      },
+      draftMin: {
+        en: "Draft Min.",
+        mne: "Gaz min."
+      },
+      draftMax: {
+        en: "Draft Max.",
+        mne: "Gaz max."
+      },
+      water: {
+        en: "Water Capacity",
+        mne: "Kapacitet vode"
+      },
+      fuel: {
+        en: "Fuel Capacity",
+        mne: "Kapacitet goriva"
+      },
+      cabins: {
+        en: "Cabins",
+        mne: "Broj kabina"
+      },
+      berths: {
+        en: "Berths",
+        mne: "Kreveta"
+      },
+      passengers: {
+        en: "Max. passengers",
+        mne: "Max. putnika"
+      },
+      bath: {
+        en: "Bathrooms",
+        mne: "Kupatila"
+      },
+      engine: {
+        en: "Engine power",
+        mne: "Snaga motora"
+      },
       bread: [
         {
-          text: "Home",
+          text: {
+            en: "Home",
+            mne: "Naslovna"
+          },
           disabled: false,
           link: "/"
         },
         {
-          text: "Details",
+          text: {
+            en: "Details",
+            mne: "Detalji"
+            },
           disabled: false,
           link: "details"
         },
         {
-          text: "Jeanneau Sun Odyssey 45",
+          text: {
+            en: "Jeanneau Sun Odyssey 45",
+            mne:"Jeanneau Sun Odyssey 45" 
+            },
           disabled: true,
           link: "boatJean"
         }
@@ -176,7 +237,10 @@ export default {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
-  }
+  },
+  computed: mapState({
+      lang: state => state.lang
+  })
 };
 </script>
 

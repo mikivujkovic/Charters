@@ -8,6 +8,7 @@ import Additional from "../components/Additional";
 import BoatsElan from "../components/BoatsElan";
 import BoatsJean from "../components/BoatsJean";
 import Offer from "../components/Offer";
+import PriceList from "../components/PriceList"
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: "/boatsJean",
       name: "BoatsJean",
       component: BoatsJean
+    },
+    {
+      path: "/priceList",
+      name: "PriceList",
+      component: PriceList
     }
   ],
   mode: "history"

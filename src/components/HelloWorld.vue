@@ -7,20 +7,17 @@
           <font size="10" style="align-center">Montenegro Charters</font>
           <br>
           <p>
-            Rent a sailboat and enjoy cruising <br>
-            to sensational destinations on Adriatic Sea.<br>
-            Spread your sails and live your life<br>
-            to the fullest. <br>
+            {{mainText[lang]}}
           </p>
           <br>
         </div>
         <div>
           <v-btn @click="showBasic" flat color="warning">Info</v-btn>
-          <v-btn @click="showOrder" flat class="white--text" color="warning">Request an offer</v-btn>
+          <v-btn @click="showOrder" flat class="white--text" color="warning">{{offerButton[lang]}}</v-btn>
         </div>
         </div>
         <div>
-         <video id="player" height=100% playsinline autoplay loop>
+         <video id="player" height=100% muted playsinline autoplay loop>
           <source src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/jedrenjaci_v2.m4v?alt=media&token=e7892037-1ba9-4da2-ac97-f4f601711867" type="video/mp4">
            Your browser does not support the video tag.
         </video> 
@@ -31,6 +28,11 @@
 </template>
 
 <script>
+
+import store from '../store/store';
+import * as type from '../store/types';
+import { mapState } from 'vuex';
+
 export default {
   name: "HelloWorld",
   methods: {
@@ -40,7 +42,27 @@ export default {
     showOrder() {
       this.$router.push("order");
     }
-  }
+  },
+  data(){
+    return{
+      mainText: {
+        en: "Rent a sailboat and enjoy cruising\
+            to sensational destinations on Adriatic Sea.\
+            Spread your sails and live your life\
+            to the fullest.",
+        mne:"Iznajmite jahtu i uživajte u jedrenju\
+            po senzacionalnim destinacijama na Jadranskom Moru.\
+            Raširite svoja jedra i živite život punim plućima" 
+      },
+      offerButton: {
+        en: "Request an offer",
+        mne: "Trazi ponudu"
+      }
+    }
+  },
+  computed: mapState({
+      lang: state => state.lang
+  })
 };
 </script>
 
@@ -83,11 +105,6 @@ back {
   right: 0;
   top: 0;
   bottom: 0;
-
-  @media only screen and (max-width: 800px) {
-    #player {
-      display: none;
-    }
-  }
 }
+
 </style>

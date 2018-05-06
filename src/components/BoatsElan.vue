@@ -11,7 +11,7 @@
             :disabled="item.disabled"
             :to="item.link"
             >
-            {{ item.text }}
+            {{ item.text[lang] }}
             </v-breadcrumbs-item>
            </v-breadcrumbs>
            </div>
@@ -41,47 +41,46 @@
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/elan18.jpeg?alt=media&token=314bee9d-7bd3-4a2f-a440-d5dd190bd2d1">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/elan20.jpeg?alt=media&token=0aa0deaa-a6fb-4ef5-b824-a8d059373e85">
              <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/elan16.jpeg?alt=media&token=cea35771-ddb5-48c7-aade-7a61b355c623">
-             <img src="https://firebasestorage.googleapis.com/v0/b/monte-charters.appspot.com/o/elan-side.jpg?alt=media&token=d4fd7f74-6d7a-4673-9aae-a663a5382734">
           </div>
         </div>
         <br>
         <div style="font-size: 20px" class="white--text">
-        <div style="font-size: 24px" align="center" class="orange--text">Technical data</div>
+        <div style="font-size: 24px" align="center" class="orange--text">{{technical[lang]}}</div>
         <div align="center" class="white--text">
-        Lenght Overall: 11.55m
+        {{lengthOverall[lang]}}: 11.55m
         </div>
         <div align="center" class="white--text">
-        Beam: 3.90m
+        {{beam[lang]}}: 3.90m
         </div>
         <div align="center" class="white--text">
-        Draft Min.: 1.50m
+        {{draftMin[lang]}}: 1.50m
         </div>
         <div align="center" class="white--text">
-        Draft Max.: 1.80m
+        {{draftMax[lang]}}: 1.80m
         </div>
         <div align="center" class="white--text">
-        Water Capacity: 240 L
+        {{water[lang]}}: 240 L
         </div>
         <div align="center" class="white--text">
-        Fuel Capacity: 180 L
+        {{fuel[lang]}}: 180 L
         </div>
         <div align="center" class="white--text">
-        Cabins: 3
+        {{cabins[lang]}}: 3
         </div>
         <div align="center" class="white--text">
-        Berths: 6/8
+        {{berths[lang]}}: 6/8
         </div>
         <div align="center" class="white--text">
-        Max. passengers: 6
+        {{passengers[lang]}}: 6
         </div>
         <div align="center" class="white--text">
-        Bathrooms: 2
+        {{bath[lang]}}: 2
         </div>
         <div align="center" class="white--text">
         WC: 2
         </div>
         <div align="center" class="white--text">
-        Engine Power: 30hp
+        {{engine[lang]}}: 54hp
         </div>
         </div>
         </v-flex>
@@ -90,22 +89,84 @@
 </template>
 
 <script>
+
+import store from '../store/store';
+import * as type from '../store/types';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
+      technical: {
+        en: 'Technical data',
+        mne: "Tehnički podaci"
+      },
+      lengthOverall: {
+        en: "Length overall",
+        mne: "Ukupna dužina"
+      },
+      beam: {
+        en: "beam",
+        mne: "širina"
+      },
+      draftMin: {
+        en: "Draft Min.",
+        mne: "Gaz min."
+      },
+      draftMax: {
+        en: "Draft Max.",
+        mne: "Gaz max."
+      },
+      water: {
+        en: "Water Capacity",
+        mne: "Kapacitet vode"
+      },
+      fuel: {
+        en: "Fuel Capacity",
+        mne: "Kapacitet goriva"
+      },
+      cabins: {
+        en: "Cabins",
+        mne: "Broj kabina"
+      },
+      berths: {
+        en: "Berths",
+        mne: "Kreveta"
+      },
+      passengers: {
+        en: "Max. passengers",
+        mne: "Max. putnika"
+      },
+      bath: {
+        en: "Bathrooms",
+        mne: "Kupatila"
+      },
+      engine: {
+        en: "Engine power",
+        mne: "Snaga motora"
+      },
       bread: [
         {
-          text: "Home",
+          text: {
+            en: "Home",
+            mne: "Naslovna"
+          },
           disabled: false,
           link: "/"
         },
         {
-          text: "Details",
+          text: {
+            en: "Details",
+            mne: "Detalji"
+            },
           disabled: false,
           link: "details"
         },
         {
-          text: "Elan Impression 384",
+          text: {
+            en: "Elan Impression 384",
+            mne:"Elan Impression 384" 
+            },
           disabled: true,
           link: "boatElan"
         }
@@ -167,7 +228,10 @@ export default {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
-  }
+  },
+  computed: mapState({
+      lang: state => state.lang
+  })
 };
 </script>
 

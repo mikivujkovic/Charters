@@ -11,36 +11,38 @@
             :disabled="item.disabled"
             :to="item.link"
             >
-            {{ item.text }}
+            {{ item.text[lang] }}
             </v-breadcrumbs-item>
            </v-breadcrumbs>
            </div>
           <br>
-           <h1 align="center" class="white--text">Basic information</h1>
+           <h1 align="center" class="white--text">{{basicTitle[lang]}}</h1>
            <br>
            <div class="white--text">
-            {{basic}} 
-           <v-btn @click="showBasic" class="white--text" flat color="warning">More info</v-btn>
+            {{basic[lang]}} 
+           <br>
+           <v-btn @click="showPriceList" class="white--text" flat color="warning">{{priceTitle[lang]}}</v-btn>
+           <v-btn @click="showBasic" class="white--text" flat color="warning">{{moreTitle[lang]}}</v-btn>
            </div>
           </div>
           <br>
           <div class="rounded" align="center" xs12>
-           <h1 align="center" class="white--text">Boats</h1>
+           <h1 align="center" class="white--text">{{boatsTitle[lang]}}</h1>
            <br>
            <div class="white--text">
-           {{boats}}
+           {{boats[lang]}}
            </div>
            <v-btn @click="showElan" class="white--text" flat color="warning">Elan Impression 384</v-btn>
            <v-btn @click="showJean" class="white--text" flat color="warning">Jeanneau Sun Odyssey 45</v-btn>
           </div>
           <br>
           <div class="rounded" align="center" xs12>
-           <h1 align="center" class="white--text">Additional services</h1>
+           <h1 align="center" class="white--text">{{addTitle[lang]}}</h1>
            <br>
            <div class="white--text">
-           {{additional}}
+           {{additional[lang]}}
            </div>
-           <v-btn @click="showAdditional" class="white--text" flat color="warning">Additional services</v-btn>
+           <v-btn @click="showAdditional" class="white--text" flat color="warning">{{addTitle[lang]}}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -48,27 +50,73 @@
 </template>
 
 <script>
+
+import store from '../store/store';
+import * as type from '../store/types';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      basic: `Sailboats are usualy rented from Saturday to Saturday. If we have a free sailboat we could rent it for less that seven 
+      basicTitle: {
+        en: "Basic information",
+        mne: "Osnovne informacije"
+      },
+      priceTitle: {
+        en: "Price List",
+        mne: "Cjenovnik"
+      },
+      moreTitle: {
+        en: "More info",
+        mne: "Dodatne informacije"
+      },
+      boatsTitle: {
+        en: "Boats",
+        mne: "Brodovi"
+      },
+      addTitle: {
+        en: "Additional services",
+        mne: "Dodatne usluge"
+      },
+      basic: {
+        en: `Sailboats are usualy rented from Saturday to Saturday. If we have a free sailboat we could rent it for less that seven 
       days, even for a few hours. Just request an offer and state what you need. We will get back to you as soon as possible. When we check 
       the availability of the sailboats we will send you an offer based on your request details. If you accept an offer we will send you 
       an invoice and payment instructions. Sailboat is booked at the moment of payment. For more information about pricing and conditions
       click below`,
-      boats: `Currently we have two sailboats: Elan Impression 384 and Jeanneau Sun Odyssey 45. Both vessels are in excellent condition. 
-      You can find more information and pictures of the boats by clicking below`,
-      additional: `Sailboats will be accmpanied with our skipper. You can request additional services like purchasing and preparing food,
-      sightseeing, restaurant or hotel reservations. we have very good connections with regional service providers and can make you excellent deals\
+        mne: `Jedrilice se obično iznajmljuju od subote do subote. Ukoliko imamo brod na raspolaganju, možemo vam ga iznajmiti i na manje od 
+        sedam dana, čak i na nekoliko sati. Samo zatražite ponudu i napišite šta vam treba. Odgovorićemo Vam u najkraćem mogućem roku. Kada
+        provjerimo raspoloživost brodova, poslaćemo vam ponudu zasnovanu na vašem zahtjevu. Ukoliko prihvatite ponudu, poslaćemo vam fakturu i 
+        instrukcije za plaćanje. Jedrilica je rezervisana momentom plaćanja. Za dodatne informacije o cijenama i uslovima kliknite`
+      },
+      boats: {
+        en: `Currently we have two sailboats: Elan Impression 384 and Jeanneau Sun Odyssey 45. Both vessels are in excellent condition and are renovated during 2018. 
+      These are owners vessels. You can find more information and pictures of the boats by clicking below`,
+        mne: `Trenutno raspolažemo sa dva broda: Elan Impression 384 i Jeanneau Sun Odyssey 45. Oba broda su u izvrsnom stanju i osvježeni su 2018. godine. 
+        U pitanju su vlasnički brodovi. Za više informacija kao i fotografije brodova kliknite ispod`
+      },
+      additional: {
+        en: `Sailboats will be accompanied with our skipper. You can request additional services like purchasing and preparing food,
+      sightseeing, restaurant or hotel reservations. We have very good connections with regional service providers and can make you excellent deals\
       on food, drink and accomodation. For more info on additional services click below`,
+        mne: `Jedrilice će voziti naš skiper. Možete zatražiti dodatne usluge kao što je nabavka i spremanje hrane, obilazak istorijskih mjesta,
+        restorana ili rezervaciju hotela. Dobro smo povezani sa regionalnim pružaocima usluga i možemo da vam obezbjedimo dobre popuste na hranu,
+        piće i smještaj. Za više informacija kliknite ispod`
+      },
       bread: [
         {
-          text: "Home",
+          text: {
+            en: "Home",
+            mne: "Naslovna"
+            },
           disabled: false,
           link: "/"
         },
         {
-          text: "Details",
+          text: {
+            en: "Details",
+            mne: "Detalji"
+            },
           disabled: true,
           link: "details"
         }
@@ -90,8 +138,14 @@ export default {
     },
     showJean() {
       this.$router.push("boatsJean");
+    },
+    showPriceList() {
+      this.$router.push("priceList");
     }
-  }
+  },
+  computed: mapState({
+      lang: state => state.lang
+  })
 };
 </script>
 
