@@ -73,6 +73,9 @@
       <v-toolbar-items>
         <v-btn flat color="orange" @click="showOrder">{{request_button[lang]}}</v-btn>
       </v-toolbar-items>
+      <v-toolbar-items>
+        <v-btn flat color="white" class="headline" @click="showContact">&#9743;</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
@@ -157,6 +160,14 @@ export default {
           icon: "directions_boat",
           click: "priceList"
         },
+        {
+          title: {
+            en: "Contact",
+            mne: "Kontakt"
+          },
+          icon: "contact_phone",
+          click: "contact"
+        },
         { title: {
           en:"REQUEST AN OFFER",
           mne: "TRAZI PONUDU"
@@ -185,6 +196,9 @@ export default {
     },
     showOrder() {
       this.$router.push("order");
+    },
+    showContact() {
+      this.$router.push("contact");
     },
     showItem(x) {
       this.$router.push(x);

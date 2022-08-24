@@ -9,6 +9,7 @@ import BoatsElan from "../components/BoatsElan";
 import BoatsJean from "../components/BoatsJean";
 import Offer from "../components/Offer";
 import PriceList from "../components/PriceList"
+import Contact from "../components/Kontakt"
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
       path: "/priceList",
       name: "PriceList",
       component: PriceList
+    },
+    {
+      path: "/contact",
+      name: "Contact",
+      component: Contact
     }
   ],
   mode: "history"

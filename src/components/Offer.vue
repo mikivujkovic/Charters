@@ -91,6 +91,7 @@
               </v-dialog>
             <v-text-field
               name="duration"
+              readonly="true"
               :label="durationLabel[lang]"
               dark
               v-model="duration"
@@ -212,6 +213,13 @@
          >
          {{snackbarText}}
          </v-snackbar>
+         <v-snackbar
+          :timeout="snackbarTimeout"
+          color="orange"
+          v-model="snackbar1"
+         >
+         {{snackbarText1}}
+         </v-snackbar>
         </v-flex>
       </v-layout>
   </v-container>
@@ -237,51 +245,53 @@ export default {
       mne: "Izaberite brod"
     },
     endDisabled: true,
-    ciscenje: 120,
+    ciscenje: 0,
     snackbarTimeout: 3000,
     snackbar: false,
+    snackbar1: false,
     snackbarText: "",
+    snackbarText1: "",
     modal: false,
     modal1: false,
     prices: {
       1: {
-        elan: 200,
-        jean: 300
-      },
-      2: {
-        elan: 250,
-        jean: 350
-      },
-      3: {
-        elan: 300,
+        elan: 290,
         jean: 400
       },
+      2: {
+        elan: 345,
+        jean: 460
+      },
+      3: {
+        elan: 460,
+        jean: 520
+      },
       4: {
-        elan: 400,
-        jean: 500
+        elan: 520,
+        jean: 650
       },
       5: {
-        elan: 450,
-        jean: 500
+        elan: 575,
+        jean: 690
       },
       6: {
-        elan: 500,
+        elan: 650,
         jean: 600
       },
       7: {
-        elan: 400,
+        elan: 520,
         jean: 500
       },
       8: {
-        elan: 350,
-        jean: 450
+        elan: 460,
+        jean: 475
       },
       9: {
-        elan: 300,
-        jean: 400
+        elan: 400,
+        jean: 420
       },
       10: {
-        elan: 200,
+        elan: 290,
         jean: 300
       }
     },
@@ -465,10 +475,14 @@ export default {
             skipperFee: this.skipperFee,
             finalPrice: this.fullPrice
           })
-          .then(alert("submitted"))
+          .then(this.submittedSnack())
           .catch(console.log(Error));
       }
       // Native form submission is not yet supported
+    },
+    submittedSnack() {
+      this.snackbar1 = true;
+      this.snackbarText1 = "Your request has been submitted";
     },
     clear() {
       this.$refs.form.reset();
@@ -505,7 +519,6 @@ export default {
     },
     getPrice(date){
       var boatName = "";
-      console.log('boat: ', this.selectBoat);
       switch(this.selectBoat) {
         case "Elan Impression 384":
           boatName = "elan";
@@ -525,10 +538,10 @@ export default {
       if (day >= 121 && day<=151) {
         priceCat = 3
       }
-      if (day >= 152 && day<=165) {
+      if (day >= 152 && day<=175) {
         priceCat = 4
       }
-      if (day >= 166 && day<190) {
+      if (day >= 176 && day<190) {
         priceCat = 5
       }
       if (day >= 191 && day<=243) {
@@ -537,7 +550,7 @@ export default {
       if (day >= 244 && day<=273) {
         priceCat = 7
       }
-      if (day >= 273 && day<=323) {
+      if (day >= 274 && day<=323) {
         priceCat = 8
       }
       if (day >= 324 && day<=334) {
@@ -552,14 +565,19 @@ export default {
       const start = moment(this.picker);
       // const end = start.clone().add(this.duration - 1, "d");
       const end = moment(this.pickerEnd);
-      console.log("is after: ", start.isSameOrAfter(end));
-      if (start.isSameOrAfter(end)) {
+      if (start.isAfter(end)) {
         this.snackbar = true;
         this.snackbarText = "Please choose date after staring date";
         this.pickerEnd = null;
       }
 
-      this.duration = Math.abs(moment.duration(end.diff(start)).as('days'));
+      this.duration = Math.abs(moment.duration(end.diff(start)).as('days')+1);
+      if (this.duration > 1) {
+        this.ciscenje = 120;
+      } else {
+        this.ciscenje = 0;
+      }
+
       const range = moment.range(start, end);
       const daysInRange = Array.from(range.by("day"));
       var daysToCompare = daysInRange.map(m => m.format("YYYY-MM-DD"));
@@ -587,31 +605,25 @@ export default {
             .reduce(this.add, 0);
         }
       this.startPrice = startingPrice;
-      console.log("starting price: ", this.startPrice);
-      console.log("duration: ", this.duration);
       const discount = this.getDiscount();
       this.discountCalc = discount*100;
-      console.log("diskont: ", this.discountCalc);
       const skipp = this.getSkipperPrice();
       this.skipperFee = skipp;
-      console.log("skipper fee: ", this.skipperFee);
       const towels = this.addTowels * 10;
       const linen = this.addLinen * 10;
       this.fullPrice = (startingPrice * (1-discount)) + skipp + towels + linen + this.ciscenje;
       this.discPrice = startingPrice * (1-discount);
       this.dodatno = towels + linen;
-      console.log("full price: ", this.fullPrice);
       this.perPrice = Math.round(this.fullPrice/this.people/this.duration);
-      console.log("per price: ", this.perPrice); 
 
     },
     getSkipperPrice() {
       switch(this.selectBoat) {
         case "Elan Impression 384":
-          return this.duration * 110;
+          return this.duration * 150;
           break;
         case "Jeanneau Sun Odyssey 45":
-          return this.duration * 130;
+          return this.duration * 150;
           break;
       }
 

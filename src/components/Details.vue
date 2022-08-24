@@ -79,12 +79,12 @@ export default {
         mne: "Dodatne usluge"
       },
       basic: {
-        en: `Sailboats are usualy rented from Saturday to Saturday. If we have a free sailboat we could rent it for less that seven 
+        en: `Sailboats are based in the Port of Kotor. Charters start and end in Kotor unles you request a different port.Sailboats are usualy rented from Saturday to Saturday. If we have a free sailboat we could rent it for less that seven 
       days, even for a few hours. Just request an offer and state what you need. We will get back to you as soon as possible. When we check 
       the availability of the sailboats we will send you an offer based on your request details. If you accept an offer we will send you 
       an invoice and payment instructions. Sailboat is booked at the moment of payment. For more information about pricing and conditions
       click below`,
-        mne: `Jedrilice se obično iznajmljuju od subote do subote. Ukoliko imamo brod na raspolaganju, možemo vam ga iznajmiti i na manje od 
+        mne: `Jedrilice se nalaze u Luci Kotor. Čarteri počinju i završavaju se u Kotoru, ukoliko vi drugačije ne zahtjevate. Jedrilice se obično iznajmljuju od subote do subote. Ukoliko imamo brod na raspolaganju, možemo vam ga iznajmiti i na manje od 
         sedam dana, čak i na nekoliko sati. Samo zatražite ponudu i napišite šta vam treba. Odgovorićemo Vam u najkraćem mogućem roku. Kada
         provjerimo raspoloživost brodova, poslaćemo vam ponudu zasnovanu na vašem zahtjevu. Ukoliko prihvatite ponudu, poslaćemo vam fakturu i 
         instrukcije za plaćanje. Jedrilica je rezervisana momentom plaćanja. Za dodatne informacije o cijenama i uslovima kliknite`

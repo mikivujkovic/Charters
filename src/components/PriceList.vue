@@ -25,9 +25,9 @@
                 <td>1.12 - 31.3</td>
                 <td>1.4 - 30.4</td>
                 <td>1.5 - 31.5</td>
-                <td>1.6 - 15.6</td>
-                <td>21.6 - 10.7</td>
-                <td>21.7 - 31.8</td>
+                <td>1.6 - 24.6</td>
+                <td>25.6 - 10.7</td>
+                <td>11.7 - 31.8</td>
                 <td>1.9 - 30.9</td>
                 <td>1.10 - 20.11</td>
                 <td>21.11 - 30.11</td>
@@ -38,15 +38,15 @@
                     <div>Elan Impression 384</div>
                   </div>
                 </td>
-                <td>200</td>
-                <td>250</td>
-                <td>300</td>
+                <td>290</td>
+                <td>345</td>
+                <td>460</td>
+                <td>520</td>
+                <td>575</td>
+                <td>650</td>
+                <td>520</td>
+                <td>460</td>
                 <td>400</td>
-                <td>450</td>
-                <td>500</td>
-                <td>400</td>
-                <td>350</td>
-                <td>300</td>
               </tr>
               <tr>
                 <td>
@@ -54,15 +54,15 @@
                     <div>Jeanneau Sun Odyssey 45</div>
                   </div>
                 </td>
-                <td>300</td>
-                <td>350</td>
                 <td>400</td>
-                <td>500</td>
-                <td>550</td>
+                <td>460</td>
+                <td>520</td>
+                <td>650</td>
+                <td>690</td>
                 <td>600</td>
                 <td>500</td>
-                <td>450</td>
-                <td>400</td>
+                <td>475</td>
+                <td>420</td>
               </tr>
             </tbody>
           </table>
@@ -94,12 +94,10 @@ export default {
       },
       priceDodatno: {
         en: `Skipper price is:
-        EUR 110/day for Elan yacht,
-        EUR 130/day for Jeanneau yacht
+        EUR 150/day
         `,
         mne: `Cijena za skipera je:
-        110 €/dan za Elan jahtu,
-        130 €/dan za Jeanneau jahtu
+        150 €/dan
         `
       },
       popust: {

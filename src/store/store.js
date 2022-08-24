@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-      lang: 'en'
+      lang: 'mne'
     },
     mutations: {
         changeToMne (state, payload){

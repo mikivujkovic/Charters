@@ -8,9 +8,14 @@ import "vuetify/dist/vuetify.min.css";
 import moment from "moment";
 import FlagIcon from "vue-flag-icon";
 import store from './store/store.js'
+import VueAnalytics from 'vue-analytics'
 
 Vue.use(FlagIcon);
 Vue.use(Vuetify);
+Vue.use(VueAnalytics, {
+  id: 'UA-119195005-1',
+  router
+})
 Vue.config.productionTip = false;
 
 new Vue({

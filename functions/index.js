@@ -48,7 +48,7 @@ exports.sendEmail = functions.firestore
 
       const mailOptions = {
         from: "montenegrocharters@gmail.com",
-        to: "montenegrocharters@gmail.com",
+        to: "montenegrocharters@gmail.com; vujkovic@gmail.com",
       };
     
       // The user subscribed to the newsletter.
@@ -75,6 +75,49 @@ exports.sendEmail = functions.firestore
        <b>skipper fee: </b><p>${skipperFee}</p>
        <b>finalna cijena: </b><p>${finalPrice}</p>
       `
+      return mailTransport.sendMail(mailOptions).then(() => {
+        return console.log('New email sent');
+      });
+
+});
+
+exports.sendEmailToUser = functions.firestore
+    .document('requests/{Id}')
+    .onCreate((snap, context) => {
+      // Get an object representing the document
+      // e.g. {'name': 'Marie', 'age': 66}
+      const newValue = snap.data();
+
+      // access a particular field as you would any JS property
+      const toEmail = newValue.email;
+      const addLinen = newValue.addLinen;
+      const addRequest = newValue.addRequest;
+      const addTowels = newValue.addTowels;
+      const address = newValue.address;
+      const basePort = newValue.basePort;
+      const boat = newValue.boat;
+      const city = newValue.city;
+      const country = newValue.country;
+      const discount = newValue.discount;
+      const duration = newValue.duration;
+      const finalPrice = newValue.finalPrice;
+      const fullName = newValue.fullName;
+      const people = newValue.people;
+      const phone = newValue.phone;
+      const rubberBoat = newValue.rubberBoat;
+      const skipperFee = newValue.skipperFee;
+      const start = newValue.start;
+      const startingPrice = newValue.startingPrice;
+
+      const mailOptions = {
+        from: "montenegrocharters@gmail.com",
+        to: toEmail,
+      };
+    
+      // The user subscribed to the newsletter.
+      mailOptions.subject = "MontenegroCharters offer request";
+      mailOptions.text = "Thank you for the request. We will get back to you with an offer as soon as possible";
+
       return mailTransport.sendMail(mailOptions).then(() => {
         return console.log('New email sent');
       });
